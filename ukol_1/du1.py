@@ -32,8 +32,7 @@ while z != "x":
         u = int()
         y = float()
         seznam_rovnobezky = []
-        from math import pi
-        from math import sin
+        from math import pi, sin
         for u in range(-90, 100, 10):
             y = (round(((r * (sin((u * 2) / 360)) / m) * 100000), 1))
             if y <= -100.0 or y >= 100.0:
@@ -54,8 +53,7 @@ while z != "x":
         u = int()
         y = float()
         seznam_rovnobezky = []
-        from math import pi
-        from math import tan
+        from math import pi, tan
         for u in range(-80, 90, 10):  # fce tan není definována v 90°
             y = (round(((r * (tan((((u * 2) / 360) * pi) / 2)) / m) * 100000), 1))
             if y <= -100.0 or y >= 100.0:
@@ -65,7 +63,6 @@ while z != "x":
         v = int()
         x = float()
         seznam_poledniky = []
-        from math import pi
         for v in range(-180, 190, 10):
             x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000),1))
             if x <= -100.0 or x >= 100.0:
