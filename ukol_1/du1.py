@@ -4,7 +4,7 @@
 
 z = input("Zadej zobrazení:")
 r = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
-m = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))  # to je v cm
+m = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
 while z != "x":
     if z == "A":
         u = int() # u je zeměpisná šířka
@@ -67,8 +67,7 @@ while z != "x":
         seznam_poledniky = []
         from math import pi
         for v in range(-180, 190, 10):
-            x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000),
-                       1))  # vynásobeno 100000 pro převod na cm a zaokrouhleno na 1 des. místo
+            x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000),1))
             if x <= -100.0 or x >= 100.0:
                 seznam_poledniky.append("-")
             else:
