@@ -1,6 +1,6 @@
 # výpočet Marinova zobrazení pro volitelný poloměr Země a měřítko
 # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
-# sloučení výpočtu Marinova a Lambertova zobrazení
+# sloučení výpočtu Marinova, Lambertova a Braunova zobrazení
 
 z = input("Zadej zobrazení:")
 r = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
@@ -45,6 +45,30 @@ while z != "x":
         seznam_poledniky = []
         for v in range(-180, 190, 10):
             x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000), 1))
+            if x <= -100.0 or x >= 100.0:
+                seznam_poledniky.append("-")
+            else:
+                seznam_poledniky.append(x)
+        break
+    if z == "B":
+        u = int()
+        y = float()
+        seznam_rovnobezky = []
+        from math import pi
+        from math import tan
+        for u in range(-80, 90, 10):  # fce tan není definována v 90°
+            y = (round(((r * (tan((((u * 2) / 360) * pi) / 2)) / m) * 100000), 1))
+            if y <= -100.0 or y >= 100.0:
+                seznam_rovnobezky.append("-")
+            else:
+                seznam_rovnobezky.append(y)
+        v = int()
+        x = float()
+        seznam_poledniky = []
+        from math import pi
+        for v in range(-180, 190, 10):
+            x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000),
+                       1))  # vynásobeno 100000 pro převod na cm a zaokrouhleno na 1 des. místo
             if x <= -100.0 or x >= 100.0:
                 seznam_poledniky.append("-")
             else:
