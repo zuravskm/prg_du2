@@ -1,14 +1,17 @@
-# výpočet Marinova zobrazení pro volitelný poloměr Země a měřítko
-# ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
 # sloučení výpočtu Marinova, Lambertova a Braunova zobrazení
+# volitelný poloměr Země a měřítko
+# ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
 
 z = input("Zadej zobrazení:")
 r = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
 m = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
+u = int() # u je zeměpisná šířka
+y = float()
+v = int() # v je zeměpisná délka
+x = float()
+
 while z != "x":
     if z == "A":
-        u = int() # u je zeměpisná šířka
-        y = float()
         seznam_rovnobezky = []
         from math import pi
         for u in range(-90, 100, 10):
@@ -18,8 +21,6 @@ while z != "x":
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
-        v = int() # v je zeměpisná délka
-        x = float()
         seznam_poledniky = []
         for v in range(-180, 190, 10):
             x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000), 1))
@@ -29,8 +30,6 @@ while z != "x":
                 seznam_poledniky.append(x)
         break
     if z == "L":
-        u = int()
-        y = float()
         seznam_rovnobezky = []
         from math import pi, sin
         for u in range(-90, 100, 10):
@@ -39,8 +38,6 @@ while z != "x":
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
-        v = int()
-        x = float()
         seznam_poledniky = []
         for v in range(-180, 190, 10):
             x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000), 1))
@@ -50,8 +47,6 @@ while z != "x":
                 seznam_poledniky.append(x)
         break
     if z == "B":
-        u = int()
-        y = float()
         seznam_rovnobezky = []
         from math import pi, tan
         for u in range(-80, 90, 10):  # fce tan není definována v 90°
@@ -60,8 +55,6 @@ while z != "x":
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
-        v = int()
-        x = float()
         seznam_poledniky = []
         for v in range(-180, 190, 10):
             x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000),1))
