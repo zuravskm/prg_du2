@@ -9,7 +9,14 @@ u = int() # u je zeměpisná šířka
 y = float()
 v = int() # v je zeměpisná délka
 x = float()
-
+seznam_poledniky = [] # výpočet poledníků je shodný pro všechna zobrazení
+from math import pi
+for v in range(-180, 190, 10):
+    x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000), 1))
+    if x <= -100.0 or x >= 100.0:
+        seznam_poledniky.append("-")
+    else:
+        seznam_poledniky.append(x)
 while z != "x":
     if z == "A":
         seznam_rovnobezky = []
@@ -21,13 +28,6 @@ while z != "x":
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
-        seznam_poledniky = []
-        for v in range(-180, 190, 10):
-            x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000), 1))
-            if x <= -100.0 or x >= 100.0:
-                seznam_poledniky.append("-")
-            else:
-                seznam_poledniky.append(x)
         break
     if z == "L":
         seznam_rovnobezky = []
@@ -38,13 +38,6 @@ while z != "x":
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
-        seznam_poledniky = []
-        for v in range(-180, 190, 10):
-            x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000), 1))
-            if x <= -100.0 or x >= 100.0:
-                seznam_poledniky.append("-")
-            else:
-                seznam_poledniky.append(x)
         break
     if z == "B":
         seznam_rovnobezky = []
@@ -55,13 +48,6 @@ while z != "x":
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
-        seznam_poledniky = []
-        for v in range(-180, 190, 10):
-            x = (round(((r * (((v * 2) / 360) * pi) / m) * 100000),1))
-            if x <= -100.0 or x >= 100.0:
-                seznam_poledniky.append("-")
-            else:
-                seznam_poledniky.append(x)
         break
 print("Zadané zobrazení:", z)
 print("Zadaný poloměr Země je:", r, "km")
