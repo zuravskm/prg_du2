@@ -1,10 +1,23 @@
 # sloučení výpočtu Marinova, Lambertova a Braunova zobrazení
 # volitelný poloměr Země a měřítko
 # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
+# ošetření chybových hlášek při zadání špatného písmene zobrazení, poloměru a měřítka
 
 z = input("Zadej zobrazení:")
+while z =="":
+    if z == "A" or z == "L" or z == "B":
+        print("Zobrazení zadáno správně")
+    else pass:
+        print("Zadej správné písmeno zobrazení!")
+        break
 r = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
+while r <= 0:
+    print("Zadej správně poloměr Země!")
+    break
 m = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
+while m <= 0:
+    print("Zadej správně měřítko!")
+    break
 u = int() # u je zeměpisná šířka
 y = float()
 v = int() # v je zeměpisná délka
@@ -29,7 +42,7 @@ while z != "x":
             else:
                 seznam_rovnobezky.append(y)
         break
-    if z == "L":
+    elif z == "L":
         seznam_rovnobezky = []
         from math import pi, sin
         for u in range(-90, 100, 10):
@@ -39,7 +52,7 @@ while z != "x":
             else:
                 seznam_rovnobezky.append(y)
         break
-    if z == "B":
+    elif z == "B":
         seznam_rovnobezky = []
         from math import pi, tan
         for u in range(-80, 90, 10):  # fce tan není definována v 90°
