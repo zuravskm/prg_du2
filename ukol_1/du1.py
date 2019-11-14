@@ -3,17 +3,11 @@
 # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
 # ošetření chybových hlášek při zadání špatného písmene zobrazení, poloměru a měřítka
 
-from math import radians, pi, sin, tan
+from math import radians, pi, sin, tan, log
 
 z = input("Zadej zobrazení:")
 r = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
-while r <= 0:
-    print("Zadej správně poloměr Země!")
-    break
 m = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
-while m <= 0:
-    print("Zadej správně měřítko!")
-    break
 u = int() # u je zeměpisná šířka
 y = float()
 v = int() # v je zeměpisná délka
@@ -49,6 +43,15 @@ while z != "x":
         seznam_rovnobezky = []
         for u in range(-80, 90, 10):  # fce tan není definována v 90°
             y = (round(((r*(tan(((radians(u)))/2))/m)*100000), 1))
+            if y <= -100.0 or y >= 100.0:
+                seznam_rovnobezky.append("-")
+            else:
+                seznam_rovnobezky.append(y)
+        break
+    elif z == "M":
+        seznam_rovnobezky = []
+        for u in range(-80, 90, 10):
+            y = (round(((r*(log(1/(tan(radians((90-u)/2)))))/m)*1000), 1))
             if y <= -100.0 or y >= 100.0:
                 seznam_rovnobezky.append("-")
             else:
