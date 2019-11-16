@@ -15,7 +15,7 @@ while polomer_cm != "x":
         break
     elif polomer_cm < 0:
         print("Zadej správný poloměr Země!")
-        break
+        quit()
     else:
         polomer_cm = polomer_cm
         break
@@ -24,7 +24,7 @@ while polomer_cm != "x":
 meritko = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
 while meritko <= 0:
     print("Zadej správně měřítko!")
-    break
+    quit()
 
 zem_sirka = int()
 y = float()
@@ -93,7 +93,7 @@ while zobrazeni != "x":
         break
     else:
         print("Zadej správné počáteční písmeno zobrazení!")
-        break
+        quit()
 
 print("Zadané zobrazení:", zobrazeni)
 while polomer_km != "x":
