@@ -1,64 +1,71 @@
 # sloučení výpočtu Marinova, Lambertova, Braunova a Mercartorova zobrazení
 # volitelný poloměr Země a měřítko
 # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
-# ošetření chybových hlášek při zadání špatného písmene zobrazení, poloměru a měřítka
 
 from math import radians, pi, sin, tan, log
 
-z = input("Zadej počáteční písmeno zobrazení:")
-r = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
-m = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
-u = int() # u je zeměpisná šířka
+zobrazeni = input("Zadej počáteční písmeno zobrazení:")
+polomer = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
+meritko = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
+zem_sirka = int()
 y = float()
-v = int() # v je zeměpisná délka
+zem_delka = int()
 x = float()
 seznam_poledniky = []
 seznam_rovnobezky = []
 
-for v in range(-180, 190, 10): # výpočet poledníků je shodný pro všechna zobrazení
-    x = (round(((r*(((v* 2)/360)*pi)/m)*100000),1))
-    if x <= -100.0 or x >= 100.0:
-        seznam_poledniky.append("-")
-    else:
-        seznam_poledniky.append(x)
+def vypocet_poledniky(zem_delka, polomer, meritko):
+    for zem_delka in range(-180, 190, 10): # výpočet poledníků je shodný pro všechna zobrazení
+        x = (round(((polomer*(((zem_delka* 2)/360)*pi)/meritko)*100000),1))
+        if x <= -100.0 or x >= 100.0:
+            seznam_poledniky.append("-")
+        else:
+            seznam_poledniky.append(x)
 
-while z != "x":
-    if z == "A":
-        for u in range(-90, 100, 10):
-            y = (round(((r*((radians(u)))/m)*100000), 1))
+while zobrazeni != "x":
+    if zobrazeni == "A":
+        for zem_sirka in range(-90, 100, 10):
+            y = (round(((polomer*((radians(zem_sirka)))/meritko)*100000), 1))
             # vynásobeno 100000 pro převod na cm a zaokrouhleno na 1 des. místo
             if y <= -100.0 or y >= 100.0:
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
+        vypocet_poledniky(zem_delka, polomer, meritko)
         break
-    elif z == "L":
-        for u in range(-90, 100, 10):
-            y = (round(((r*(sin(radians(u)))/m)*100000), 1))
+    elif zobrazeni == "L":
+        for zem_sirka in range(-90, 100, 10):
+            y = (round(((polomer*(sin(radians(zem_sirka)))/meritko)*100000), 1))
             if y <= -100.0 or y >= 100.0:
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
+        vypocet_poledniky(zem_delka, polomer, meritko)
         break
-    elif z == "B":
-        for u in range(-80, 90, 10):  # fce tan není definována v 90°
-            y = (round(((r*(tan(((radians(u)))/2))/m)*100000), 1))
+    elif zobrazeni == "B":
+        for zem_sirka in range(-90, 100, 10):
+            y = (round(((polomer*(tan(((radians(zem_sirka)))/2))/meritko)*100000), 1))
             if y <= -100.0 or y >= 100.0:
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
+        vypocet_poledniky(zem_delka, polomer, meritko)
         break
-    elif z == "M":
-        for u in range(-80, 90, 10):
-            y = (round(((r*(log(1/(tan(radians((90-u)/2)))))/m)*100000), 1))
+    elif zobrazeni == "M":
+        for zem_sirka in range(-80, 90, 10): # problém s 90°, proto jen do 80°
+            y = (round(((polomer*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko)*100000), 1))
             if y <= -100.0 or y >= 100.0:
                 seznam_rovnobezky.append("-")
             else:
                 seznam_rovnobezky.append(y)
+        vypocet_poledniky(zem_delka, polomer, meritko)
+        break
+    else:
+        print("Zadej správné počáteční písmeno zobrazení!")
         break
 
-print("Zadané zobrazení:", z)
-print("Zadaný poloměr Země je:", r, "km")
-print("Zadané měřítko je: 1 :", m)
+print("Zadané zobrazení:", zobrazeni)
+print("Zadaný poloměr Země je:", polomer, "km")
+print("Zadané měřítko je: 1 :", meritko)
 print("Rovnoběžky:", seznam_rovnobezky)
 print("Poledníky:", seznam_poledniky)
