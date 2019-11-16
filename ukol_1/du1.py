@@ -1,12 +1,29 @@
-# sloučení výpočtu Marinova, Lambertova, Braunova a Mercartorova zobrazení
-# volitelný poloměr Země a měřítko
-# ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
+# Výpočet Marinova, Lambertova, Braunova a Mercartorova zobrazení
 
 from math import radians, pi, sin, tan, log
 
 zobrazeni = input("Zadej počáteční písmeno zobrazení:")
+
+# volitelný poloměr Země
+# pokud uživatel zadá 0, je poloměr roven 6371,11 km
+# pokud zadá záporné číslo, program nahlásí chybu
 polomer = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
+while polomer != "x":
+    if polomer == 0:
+        polomer = 6371.11
+        break
+    elif polomer < 0:
+        print("Zadej správný poloměr Země!")
+        break
+    else:
+        polomer = polomer
+        break
+
+# pokud uživatel zadá záporné měřítko, pogram nahlásí chybu
 meritko = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
+while meritko <= 0:
+    print("Zadej správně měřítko!")
+    break
 zem_sirka = int()
 y = float()
 zem_delka = int()
@@ -19,6 +36,7 @@ def vypocet_poledniky(zem_delka, polomer, meritko):
         x = (round(((polomer*(((zem_delka* 2)/360)*pi)/meritko)*100000),1))
         if x <= -100.0 or x >= 100.0:
             seznam_poledniky.append("-")
+            # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
         else:
             seznam_poledniky.append(x)
 
