@@ -24,6 +24,7 @@ meritko = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
 while meritko <= 0:
     print("Zadej správně měřítko!")
     break
+
 zem_sirka = int()
 y = float()
 zem_delka = int()
@@ -40,42 +41,54 @@ def vypocet_poledniky(zem_delka, polomer, meritko):
         else:
             seznam_poledniky.append(x)
 
+def Marin_rovnobezky(zem_sirka, polomer, meritko):
+    for zem_sirka in range(-90, 100, 10):
+        y = (round(((polomer*((radians(zem_sirka)))/meritko)*100000), 1))
+        # vynásobeno 100000 pro převod na cm a zaokrouhleno na 1 des. místo
+        if y <= -100.0 or y >= 100.0:
+            seznam_rovnobezky.append("-")
+        else:
+            seznam_rovnobezky.append(y)
+
+def Lambert_rovnobezky(zem_sirka, polomer, meritko):
+    for zem_sirka in range(-90, 100, 10):
+        y = (round(((polomer*(sin(radians(zem_sirka)))/meritko)*100000), 1))
+        if y <= -100.0 or y >= 100.0:
+            seznam_rovnobezky.append("-")
+        else:
+            seznam_rovnobezky.append(y)
+
+def Braun_rovnobezky(zem_sirka, polomer, meritko):
+    for zem_sirka in range(-90, 100, 10):
+        y = (round(((polomer * (tan(((radians(zem_sirka)))/2))/meritko)*100000), 1))
+        if y <= -100.0 or y >= 100.0:
+            seznam_rovnobezky.append("-")
+        else:
+            seznam_rovnobezky.append(y)
+
+def Mercator_rovnoezky(zem_sirka, polomer, meritko):
+    for zem_sirka in range(-80, 90, 10):  # problém s 90°, proto jen do 80°
+        y = (round(((polomer*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko)*100000), 1))
+        if y <= -100.0 or y >= 100.0:
+            seznam_rovnobezky.append("-")
+        else:
+            seznam_rovnobezky.append(y)
+
 while zobrazeni != "x":
     if zobrazeni == "A":
-        for zem_sirka in range(-90, 100, 10):
-            y = (round(((polomer*((radians(zem_sirka)))/meritko)*100000), 1))
-            # vynásobeno 100000 pro převod na cm a zaokrouhleno na 1 des. místo
-            if y <= -100.0 or y >= 100.0:
-                seznam_rovnobezky.append("-")
-            else:
-                seznam_rovnobezky.append(y)
+        Marin_rovnobezky(zem_sirka, polomer, meritko)
         vypocet_poledniky(zem_delka, polomer, meritko)
         break
     elif zobrazeni == "L":
-        for zem_sirka in range(-90, 100, 10):
-            y = (round(((polomer*(sin(radians(zem_sirka)))/meritko)*100000), 1))
-            if y <= -100.0 or y >= 100.0:
-                seznam_rovnobezky.append("-")
-            else:
-                seznam_rovnobezky.append(y)
+        Lambert_rovnobezky(zem_sirka, polomer, meritko)
         vypocet_poledniky(zem_delka, polomer, meritko)
         break
     elif zobrazeni == "B":
-        for zem_sirka in range(-90, 100, 10):
-            y = (round(((polomer*(tan(((radians(zem_sirka)))/2))/meritko)*100000), 1))
-            if y <= -100.0 or y >= 100.0:
-                seznam_rovnobezky.append("-")
-            else:
-                seznam_rovnobezky.append(y)
+        Braun_rovnobezky(zem_sirka, polomer, meritko)
         vypocet_poledniky(zem_delka, polomer, meritko)
         break
     elif zobrazeni == "M":
-        for zem_sirka in range(-80, 90, 10): # problém s 90°, proto jen do 80°
-            y = (round(((polomer*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko)*100000), 1))
-            if y <= -100.0 or y >= 100.0:
-                seznam_rovnobezky.append("-")
-            else:
-                seznam_rovnobezky.append(y)
+        Mercator_rovnoezky(zem_sirka, polomer, meritko)
         vypocet_poledniky(zem_delka, polomer, meritko)
         break
     else:
