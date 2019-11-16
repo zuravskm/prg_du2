@@ -2,6 +2,7 @@
 
 from math import radians, pi, sin, tan, log
 
+# ošetření chybového vstupu při zadávíní zobrazení
 zobrazeni = input("Zadej počáteční písmeno zobrazení:")
 while zobrazeni != "x":
     if zobrazeni == "A":
