@@ -3,6 +3,22 @@
 from math import radians, pi, sin, tan, log
 
 zobrazeni = input("Zadej počáteční písmeno zobrazení:")
+while zobrazeni != "x":
+    if zobrazeni == "A":
+        zobrazeni = zobrazeni
+        break
+    elif zobrazeni == "B":
+        zobrazeni = zobrazeni
+        break
+    elif zobrazeni == "L":
+        zobrazeni = zobrazeni
+        break
+    elif zobrazeni == "L":
+        zobrazeni = zobrazeni
+        break
+    else:
+        print("Zadej správné počáteční písmeno zobrazení!")
+        quit()
 
 # volitelný poloměr Země
 # pokud uživatel zadá 0, je poloměr roven 6371,11 km
@@ -91,9 +107,6 @@ while zobrazeni != "x":
         Mercator_rovnoezky(zem_sirka, polomer_cm, meritko)
         vypocet_poledniky(zem_delka, polomer_cm, meritko)
         break
-    else:
-        print("Zadej správné počáteční písmeno zobrazení!")
-        quit()
 
 print("Zadané zobrazení:", zobrazeni)
 while polomer_km != "x":
