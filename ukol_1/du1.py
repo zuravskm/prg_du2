@@ -3,23 +3,26 @@
 from math import radians, pi, sin, tan, log
 
 # ošetření chybového vstupu při zadávíní zobrazení
+# pokud uživatel zadá x program skončí
+# pokud uživetel zadá jiné písmeno, program ho upozorní a skončí
 zobrazeni = input("Zadej počáteční písmeno zobrazení:")
-while zobrazeni != "x":
-    if zobrazeni == "A":
-        zobrazeni = zobrazeni
-        break
-    elif zobrazeni == "B":
-        zobrazeni = zobrazeni
-        break
-    elif zobrazeni == "L":
-        zobrazeni = zobrazeni
-        break
-    elif zobrazeni == "M":
-        zobrazeni = zobrazeni
-        break
-    else:
-        print("Zadej správné počáteční písmeno zobrazení!")
-        quit()
+def kontrola_zobrazeni (zobrazeni):
+    while zobrazeni != "0":
+        if zobrazeni == "A":
+            return zobrazeni
+        elif zobrazeni == "B":
+            return zobrazeni
+        elif zobrazeni == "L":
+            return zobrazeni
+        elif zobrazeni == "M":
+            return zobrazeni
+        elif zobrazeni == "x":
+            print("Zadal jsi x, program končí.")
+            quit()
+        else:
+            print("Zadej správné počáteční písmeno zobrazení!")
+            quit()
+kontrola_zobrazeni(zobrazeni)
 
 # volitelný poloměr Země
 # pokud uživatel zadá 0, je poloměr roven 6371,11 km
