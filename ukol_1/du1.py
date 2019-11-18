@@ -102,23 +102,25 @@ def Mercator_rovnobezky(polomer_cm, meritko):
         else:
             seznam_rovnobezky.append(y)
 
-while zobrazeni != "x":
+def vypocti_zvolene_zobrazeni(zobrazeni):
     if zobrazeni == "A":
         Marin_rovnobezky(polomer_cm, meritko)
         vypocet_poledniky(polomer_cm, meritko)
-        break
+        return
     elif zobrazeni == "L":
         Lambert_rovnobezky(polomer_cm, meritko)
         vypocet_poledniky(polomer_cm, meritko)
-        break
+        return
     elif zobrazeni == "B":
         Braun_rovnobezky(polomer_cm, meritko)
         vypocet_poledniky(polomer_cm, meritko)
-        break
+        return
     elif zobrazeni == "M":
         Mercator_rovnobezky(polomer_cm, meritko)
         vypocet_poledniky(polomer_cm, meritko)
-        break
+        return
+
+vypocti_zvolene_zobrazeni(zobrazeni)
 
 print("Zadané zobrazení:", zobrazeni)
 while polomer_km != "x":
