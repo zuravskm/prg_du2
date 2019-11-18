@@ -27,12 +27,16 @@ kontrola_zobrazeni(zobrazeni)
 # volitelný poloměr Země
 # pokud uživatel zadá 0, je poloměr roven 6371,11 km
 # pokud zadá záporné číslo, program nahlásí chybu
+# pokud uživatel zadá x, program skončí
 polomer_km = float(input("Zadej poloměr Země v km (s desetinnou tečkou):"))
 polomer_cm = polomer_km*100000
-while polomer_cm != "x":
+while polomer_cm != "I":
     if polomer_cm == 0:
         polomer_cm = 637111000
         break
+    elif polomer_cm == "x":
+        print("Zadal jsi x, program končí.")
+        quit()
     elif polomer_cm < 0:
         print("Zadej správný poloměr Země!")
         quit()
@@ -51,7 +55,7 @@ zem_sirka = int()
 seznam_rovnobezky = []
 seznam_poledniky = []
 
-def vypocet_poledniky(zem_delka, polomer_cm, meritko):
+def vypocet_poledniky(polomer_cm, meritko):
     x = float()
     for zem_delka in range(-180, 190, 10): # výpočet poledníků je shodný pro všechna zobrazení
         x = (round((polomer_cm*(((zem_delka* 2)/360)*pi)/meritko),1))
@@ -61,7 +65,7 @@ def vypocet_poledniky(zem_delka, polomer_cm, meritko):
         else:
             seznam_poledniky.append(x)
 
-def Marin_rovnobezky(zem_sirka, polomer_cm, meritko):
+def Marin_rovnobezky(polomer_cm, meritko):
     y = float()
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm*((radians(zem_sirka)))/meritko), 1)) # zaokrouhleno na 1 des. místo
@@ -70,7 +74,7 @@ def Marin_rovnobezky(zem_sirka, polomer_cm, meritko):
         else:
             seznam_rovnobezky.append(y)
 
-def Lambert_rovnobezky(zem_sirka, polomer_cm, meritko):
+def Lambert_rovnobezky(polomer_cm, meritko):
     y = float()
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm*(sin(radians(zem_sirka)))/meritko), 1))
@@ -79,7 +83,7 @@ def Lambert_rovnobezky(zem_sirka, polomer_cm, meritko):
         else:
             seznam_rovnobezky.append(y)
 
-def Braun_rovnobezky(zem_sirka, polomer_cm, meritko):
+def Braun_rovnobezky(polomer_cm, meritko):
     y = float()
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm * (tan(((radians(zem_sirka)))/2))/meritko), 1))
@@ -88,7 +92,7 @@ def Braun_rovnobezky(zem_sirka, polomer_cm, meritko):
         else:
             seznam_rovnobezky.append(y)
 
-def Mercator_rovnobezky(zem_sirka, polomer_cm, meritko):
+def Mercator_rovnobezky(polomer_cm, meritko):
     y = float()
     for zem_sirka in range(-80, 90, 10):  # problém s 90°, proto jen do 80°
         y = (round((polomer_cm*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko), 1))
@@ -99,20 +103,20 @@ def Mercator_rovnobezky(zem_sirka, polomer_cm, meritko):
 
 while zobrazeni != "x":
     if zobrazeni == "A":
-        Marin_rovnobezky(zem_sirka, polomer_cm, meritko)
-        vypocet_poledniky(zem_delka, polomer_cm, meritko)
+        Marin_rovnobezky(polomer_cm, meritko)
+        vypocet_poledniky(polomer_cm, meritko)
         break
     elif zobrazeni == "L":
-        Lambert_rovnobezky(zem_sirka, polomer_cm, meritko)
-        vypocet_poledniky(zem_delka, polomer_cm, meritko)
+        Lambert_rovnobezky(polomer_cm, meritko)
+        vypocet_poledniky(polomer_cm, meritko)
         break
     elif zobrazeni == "B":
-        Braun_rovnobezky(zem_sirka, polomer_cm, meritko)
-        vypocet_poledniky(zem_delka, polomer_cm, meritko)
+        Braun_rovnobezky(polomer_cm, meritko)
+        vypocet_poledniky(polomer_cm, meritko)
         break
     elif zobrazeni == "M":
-        Mercator_rovnobezky(zem_sirka, polomer_cm, meritko)
-        vypocet_poledniky(zem_delka, polomer_cm, meritko)
+        Mercator_rovnobezky(polomer_cm, meritko)
+        vypocet_poledniky(polomer_cm, meritko)
         break
 
 print("Zadané zobrazení:", zobrazeni)
