@@ -144,3 +144,22 @@ def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
     return x
 vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
 print(x)
+
+bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
+y = float()
+def vypocti_zem_sirku_bodu(bod_zem_sirka, polomer_cm, meritko):
+    if zobrazeni == "A":
+        y = (round((polomer_cm*((radians(bod_zem_sirka)))/meritko), 1))
+        return y
+    elif zobrazeni == "B":
+        y = (round((polomer_cm*(sin(radians(bod_zem_sirka)))/meritko), 1))
+        return y
+    elif zobrazeni == "L":
+        y = (round((polomer_cm*(tan(((radians(bod_zem_sirka)))/2))/meritko), 1))
+        return y
+    elif zobrazeni == "M":
+        y = (round((polomer_cm*(log(1/(tan(radians((90-bod_zem_sirka)/2)))))/meritko), 1))
+        return y
+
+vypocti_zem_sirku_bodu(bod_zem_sirka, polomer_cm, meritko)
+print(y)
