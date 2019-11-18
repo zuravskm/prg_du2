@@ -59,7 +59,7 @@ seznam_poledniky = []
 def vypocet_poledniky(polomer_cm, meritko):
     x = float()
     for zem_delka in range(-180, 190, 10): # výpočet poledníků je shodný pro všechna zobrazení
-        x = (round((polomer_cm*(((zem_delka* 2)/360)*pi)/meritko),1))
+        x = (round((polomer_cm*((radians(zem_delka)))/meritko),1))
         if x <= -100.0 or x >= 100.0:
             seznam_poledniky.append("-")
             # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
@@ -133,3 +133,14 @@ while polomer_km != "x":
 print("Zadané měřítko je: 1 :", meritko)
 print("Rovnoběžky:", seznam_rovnobezky)
 print("Poledníky:", seznam_poledniky)
+
+# výpočet souřadnic libovolných bodů
+# nejdříve zeměpisnou délku
+
+bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
+x = float()
+def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
+    x = (round((polomer_cm*((radians(bod_zem_delka)))/meritko),1))
+    return x
+vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
+print(x)
