@@ -196,6 +196,13 @@ def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
         souradnice_bodu.append(x)
 
 # volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
-vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko)
-vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
-print("Souřadnice zadaného bodu jsou:", souradnice_bodu)
+# pokud je zadán vstup [0,0], program končí
+while bod_zem_sirka != 0 and bod_zem_delka != 0:
+    vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko)
+    vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
+    print("Souřadnice zadaného bodu jsou:", souradnice_bodu)
+    bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
+    bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
+if bod_zem_sirka == 0 and bod_zem_delka == 0:
+    print("Zadaný bod [0,0], konec programu.")
+    quit()
