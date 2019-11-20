@@ -1,8 +1,8 @@
 # Výpočet Marinova, Lambertova, Braunova a Mercartorova zobrazení
 
-from math import radians, pi, sin, tan, log
+from math import radians, sin, tan, log
 
-# ošetření chybového vstupu při zadávíní zobrazení
+# zadání zobrazení
 # pokud uživatel zadá x program nahlásí chybu a skončí
 # pokud uživetel zadá jiné písmeno, program ho upozorní a skončí
 zobrazeni = input("Zadej počáteční písmeno zobrazení:")
@@ -25,6 +25,7 @@ def kontrola_zobrazeni (zobrazeni):
 kontrola_zobrazeni(zobrazeni)
 
 # volitelný poloměr Země
+# vrací zadaný poloměr přepočtený na cm
 # pokud uživatel zadá 0, je poloměr roven 6371,11 km
 # pokud zadá záporné číslo, program nahlásí chybu a skončí
 polomer_km = float(input("Zadej poloměr Země v km (s desetinnou tečkou), nebo 0 pro poloměr 6371.11:"))
@@ -40,6 +41,8 @@ while polomer_cm != "x":
         polomer_cm
         break
 
+# zadávání měřítka
+# funkce vrací zadané měřítko
 # pokud uživatel zadá záporné nebo nulové měřítko, pogram nahlásí chybu
 meritko = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
 def kontrola_meritka(meritko):
@@ -55,6 +58,8 @@ seznam_rovnobezky = []
 seznam_poledniky = []
 
 # výpočet poledníků je shodný pro všechna zobrazení
+# vstupem je zadané poloměr a měřítko
+# vrací vypočtenou hodnotu s přesností na milimetry (proměnná x)
 def vypocet_poledniky(polomer_cm, meritko):
     x = float()
     for zem_delka in range(-180, 190, 10):
@@ -64,6 +69,10 @@ def vypocet_poledniky(polomer_cm, meritko):
             # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
         else:
             seznam_poledniky.append(x)
+
+# 4 funkce na výpočet rovnoběžek dle zadaného zobrazení
+# vstupem je zadané poloměr a měřítko
+# výstupem je hodnota s přesností na milimetry (proměnná y)
 
 def Marin_rovnobezky(polomer_cm, meritko):
     y = float()
@@ -101,6 +110,8 @@ def Mercator_rovnobezky(polomer_cm, meritko):
         else:
             seznam_rovnobezky.append(y)
 
+# funkce, která volá jednotlivé funkce na výpočet poledníků a rovnoběžek definované výše dle požadovaného zobrazení
+# vstupem je zobrazení
 def vypocti_zvolene_zobrazeni(zobrazeni):
     if zobrazeni == "A":
         Marin_rovnobezky(polomer_cm, meritko)
@@ -118,8 +129,11 @@ def vypocti_zvolene_zobrazeni(zobrazeni):
         Mercator_rovnobezky(polomer_cm, meritko)
         vypocet_poledniky(polomer_cm, meritko)
         return
-
 vypocti_zvolene_zobrazeni(zobrazeni)
+
+
+# vypsání výsledků pomocí volání funkce print()
+# je zde ošetřen vstup poloměru 0 pro defaultně nastavený poloměr 6371.11 km
 
 print("Zadané zobrazení:", zobrazeni)
 # ošetřen výsledný výstup poloměru ve správných jednotkách
@@ -134,11 +148,16 @@ print("Zadané měřítko je: 1 :", meritko)
 print("Rovnoběžky:", seznam_rovnobezky)
 print("Poledníky:", seznam_poledniky)
 
+
 # výpočet souřadnic libovolných bodů
+# využívá zadané vstupy na začítku programu: zobrazení, poloměr a měřítko
+# nejdříve požadováno jako vstup zadání zeměpisné šířky a zeměpisné délky bodu
 bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
 bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
 souradnice_bodu = []
 
+# funkce, která dle zadaného zobrazení vypočte vzdálenost od bodu [0,0] po svislé ose
+# vstupem je zeměpisná šířka, zobrazení, poloměr a měřítko
 def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
     y = float()
     if zobrazeni == "A":
@@ -166,6 +185,8 @@ def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
         else:
             souradnice_bodu.append(y)
 
+# funkce, která vypočte vzdálenost od bodu [0,0] po vodorovné ose
+# vstupem je zeměpisná délka, poloměr a měřítko
 def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
     x = float()
     x = (round((polomer_cm * ((radians(bod_zem_delka))) / meritko), 1))
@@ -174,7 +195,7 @@ def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
     else:
         souradnice_bodu.append(x)
 
+# volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
 vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko)
 vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
-
 print("Souřadnice zadaného bodu jsou:", souradnice_bodu)
