@@ -135,31 +135,47 @@ print("Rovnoběžky:", seznam_rovnobezky)
 print("Poledníky:", seznam_poledniky)
 
 # výpočet souřadnic libovolných bodů
-# nejdříve zeměpisnou délku
-
-bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
-x = float()
-def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
-    x = (round((polomer_cm*((radians(bod_zem_delka)))/meritko),1))
-    return x
-vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
-print(x)
 
 bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
-y = float()
-def vypocti_zem_sirku_bodu(bod_zem_sirka, polomer_cm, meritko):
-    if zobrazeni == "A":
-        y = (round((polomer_cm*((radians(bod_zem_sirka)))/meritko), 1))
-        return y
-    elif zobrazeni == "B":
-        y = (round((polomer_cm*(sin(radians(bod_zem_sirka)))/meritko), 1))
-        return y
-    elif zobrazeni == "L":
-        y = (round((polomer_cm*(tan(((radians(bod_zem_sirka)))/2))/meritko), 1))
-        return y
-    elif zobrazeni == "M":
-        y = (round((polomer_cm*(log(1/(tan(radians((90-bod_zem_sirka)/2)))))/meritko), 1))
-        return y
+bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
+souradnice_bodu = []
 
-vypocti_zem_sirku_bodu(bod_zem_sirka, polomer_cm, meritko)
-print(y)
+def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
+    y = float()
+    if zobrazeni == "A":
+        y = (round((polomer_cm * ((radians(bod_zem_sirka))) / meritko), 1))
+        if y <= -100.0 or y >= 100.0:
+            souradnice_bodu.append("-")
+        else:
+            souradnice_bodu.append(y)
+    elif zobrazeni == "B":
+        y = (round((polomer_cm * (sin(radians(bod_zem_sirka))) / meritko), 1))
+        if y <= -100.0 or y >= 100.0:
+            souradnice_bodu.append("-")
+        else:
+            souradnice_bodu.append(y)
+    elif zobrazeni == "L":
+        y = (round((polomer_cm * (tan(((radians(bod_zem_sirka))) / 2)) / meritko), 1))
+        if y <= -100.0 or y >= 100.0:
+            souradnice_bodu.append("-")
+        else:
+            souradnice_bodu.append(y)
+    elif zobrazeni == "M":
+        y = (round((polomer_cm * (log(1 / (tan(radians((90 - bod_zem_sirka) / 2))))) / meritko), 1))
+        if y <= -100.0 or y >= 100.0:
+            souradnice_bodu.append("-")
+        else:
+            souradnice_bodu.append(y)
+
+def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
+    x = float()
+    x = (round((polomer_cm * ((radians(bod_zem_delka))) / meritko), 1))
+    if x <= -100.0 or x >= 100.0:
+        souradnice_bodu.append("-")
+    else:
+        souradnice_bodu.append(x)
+
+vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko)
+vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
+
+print("Souřadnice zadaného bodu jsou:", souradnice_bodu)
