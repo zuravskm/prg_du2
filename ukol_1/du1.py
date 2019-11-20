@@ -3,7 +3,7 @@
 from math import radians, pi, sin, tan, log
 
 # ošetření chybového vstupu při zadávíní zobrazení
-# pokud uživatel zadá x program skončí
+# pokud uživatel zadá x program nahlásí chybu a skončí
 # pokud uživetel zadá jiné písmeno, program ho upozorní a skončí
 zobrazeni = input("Zadej počáteční písmeno zobrazení:")
 def kontrola_zobrazeni (zobrazeni):
@@ -26,8 +26,7 @@ kontrola_zobrazeni(zobrazeni)
 
 # volitelný poloměr Země
 # pokud uživatel zadá 0, je poloměr roven 6371,11 km
-# pokud zadá záporné číslo, program nahlásí chybu
-# pokud uživatel zadá x, program skončí
+# pokud zadá záporné číslo, program nahlásí chybu a skončí
 polomer_km = float(input("Zadej poloměr Země v km (s desetinnou tečkou), nebo 0 pro poloměr 6371.11:"))
 polomer_cm = polomer_km*100000
 while polomer_cm != "x":
@@ -55,10 +54,11 @@ kontrola_meritka(meritko)
 seznam_rovnobezky = []
 seznam_poledniky = []
 
+# výpočet poledníků je shodný pro všechna zobrazení
 def vypocet_poledniky(polomer_cm, meritko):
     x = float()
-    for zem_delka in range(-180, 190, 10): # výpočet poledníků je shodný pro všechna zobrazení
-        x = (round((polomer_cm*((radians(zem_delka)))/meritko),1))
+    for zem_delka in range(-180, 190, 10):
+        x = (round((polomer_cm*((radians(zem_delka)))/meritko),1)) # zaokrouhleno na 1 des. místo
         if x <= -100.0 or x >= 100.0:
             seznam_poledniky.append("-")
             # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
@@ -68,7 +68,7 @@ def vypocet_poledniky(polomer_cm, meritko):
 def Marin_rovnobezky(polomer_cm, meritko):
     y = float()
     for zem_sirka in range(-90, 100, 10):
-        y = (round((polomer_cm*((radians(zem_sirka)))/meritko), 1)) # zaokrouhleno na 1 des. místo
+        y = (round((polomer_cm*((radians(zem_sirka)))/meritko), 1))
         if y <= -100.0 or y >= 100.0:
             seznam_rovnobezky.append("-")
         else:
@@ -122,6 +122,7 @@ def vypocti_zvolene_zobrazeni(zobrazeni):
 vypocti_zvolene_zobrazeni(zobrazeni)
 
 print("Zadané zobrazení:", zobrazeni)
+# ošetřen výsledný výstup poloměru ve správných jednotkách
 while polomer_km != "x":
     if polomer_km == 0:
         print("Zadaný poloměr Země je: 6371.11 km")
@@ -134,7 +135,6 @@ print("Rovnoběžky:", seznam_rovnobezky)
 print("Poledníky:", seznam_poledniky)
 
 # výpočet souřadnic libovolných bodů
-
 bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
 bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
 souradnice_bodu = []
