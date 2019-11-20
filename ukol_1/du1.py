@@ -30,17 +30,16 @@ kontrola_zobrazeni(zobrazeni)
 # pokud uživatel zadá x, program skončí
 polomer_km = float(input("Zadej poloměr Země v km (s desetinnou tečkou), nebo 0 pro poloměr 6371.11:"))
 polomer_cm = polomer_km*100000
-def kontrola_polomeru(polomer_cm):
-    while polomer_cm != "x":
-        if polomer_cm == 0:
-            polomer_cm = 637111000
-            return polomer_cm
-        elif polomer_cm < 0:
-            print("Zadej správný poloměr Země!")
-            quit()
-        else:
-            return polomer_cm
-kontrola_polomeru(polomer_cm)
+while polomer_cm != "x":
+    if polomer_cm == 0:
+        polomer_cm = 637111000
+        break
+    elif polomer_cm < 0:
+        print("Zadej správný poloměr Země!")
+        quit()
+    else:
+        polomer_cm
+        break
 
 # pokud uživatel zadá záporné nebo nulové měřítko, pogram nahlásí chybu
 meritko = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
