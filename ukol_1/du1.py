@@ -184,7 +184,7 @@ while True:
     elif bod_zem_delka > 180 or bod_zem_delka < -180:
         print("Zadaná nesprávná zeměpisná délka! Zadej znovu.")
         continue
-    elif zobrazeni = M and (bod_zem_sirka >= 90 or bod_zem_sirka <= -90):
+    elif zobrazeni == "M" and (bod_zem_sirka >= 90 or bod_zem_sirka <= -90):
         print("Chyba")
         continue
     vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko)
