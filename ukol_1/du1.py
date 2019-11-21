@@ -6,23 +6,9 @@ from math import radians, sin, tan, log
 # pokud uživatel zadá x program nahlásí chybu a skončí
 # pokud uživetel zadá jiné písmeno, program ho upozorní a skončí
 zobrazeni = input("Zadej počáteční písmeno zobrazení:")
-def kontrola_zobrazeni (zobrazeni):
-    while zobrazeni != "0":
-        if zobrazeni == "A":
-            return zobrazeni
-        elif zobrazeni == "B":
-            return zobrazeni
-        elif zobrazeni == "L":
-            return zobrazeni
-        elif zobrazeni == "M":
-            return zobrazeni
-        elif zobrazeni == "x":
-            print("Zadal jsi x, program končí.")
-            quit()
-        else:
-            print("Zadej správné počáteční písmeno zobrazení!")
-            quit()
-kontrola_zobrazeni(zobrazeni)
+if zobrazeni not in ["A", "B", "L", "M"]:
+    print("Zadej správné počáteční písmeno zobrazení!")
+    quit()
 
 # volitelný poloměr Země
 # vrací zadaný poloměr přepočtený na cm
@@ -30,29 +16,19 @@ kontrola_zobrazeni(zobrazeni)
 # pokud zadá záporné číslo, program nahlásí chybu a skončí
 polomer_km = float(input("Zadej poloměr Země v km (s desetinnou tečkou), nebo 0 pro poloměr 6371.11:"))
 polomer_cm = polomer_km*100000
-while polomer_cm != "x":
-    if polomer_cm == 0:
-        polomer_cm = 637111000
-        break
-    elif polomer_cm < 0:
-        print("Zadej správný poloměr Země!")
-        quit()
-    else:
-        polomer_cm
-        break
+if polomer_cm == 0:
+    polomer_cm = 637111000
+elif polomer_cm < 0:
+    print("Zadej správný poloměr Země!")
+    quit()
 
 # zadávání měřítka
 # funkce vrací zadané měřítko
 # pokud uživatel zadá záporné nebo nulové měřítko, pogram nahlásí chybu
 meritko = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
-def kontrola_meritka(meritko):
-    while meritko != "x":
-        if meritko > 0:
-            return meritko
-        else:
-            print("Zadej správně měřítko!")
-            quit()
-kontrola_meritka(meritko)
+if meritko <= 0:
+    print("Zadej správně měřítko!")
+    quit()
 
 seznam_rovnobezky = []
 seznam_poledniky = []
@@ -69,6 +45,7 @@ def vypocet_poledniky(polomer_cm, meritko):
             # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
         else:
             seznam_poledniky.append(x)
+
 
 # 4 funkce na výpočet rovnoběžek dle zadaného zobrazení
 # vstupem je zadané poloměr a měřítko
@@ -137,13 +114,10 @@ vypocti_zvolene_zobrazeni(zobrazeni)
 
 print("Zadané zobrazení:", zobrazeni)
 # ošetřen výsledný výstup poloměru ve správných jednotkách
-while polomer_km != "x":
-    if polomer_km == 0:
-        print("Zadaný poloměr Země je: 6371.11 km")
-        break
-    else:
-        print("Zadaný poloměr Země je:", polomer_km, "km")
-        break
+if polomer_km == 0:
+    print("Zadaný poloměr Země je: 6371.11 km")
+else:
+    print("Zadaný poloměr Země je:", polomer_km, "km")
 print("Zadané měřítko je: 1 :", meritko)
 print("Rovnoběžky:", seznam_rovnobezky)
 print("Poledníky:", seznam_poledniky)
@@ -152,9 +126,9 @@ print("Poledníky:", seznam_poledniky)
 # výpočet souřadnic libovolných bodů
 # využívá zadané vstupy na začítku programu: zobrazení, poloměr a měřítko
 # nejdříve požadováno jako vstup zadání zeměpisné šířky a zeměpisné délky bodu
-bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
-bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
-souradnice_bodu = []
+# bod_zem_sirka = int(input()
+# bod_zem_delka = int(input()
+# souradnice_bodu = []
 
 # funkce, která dle zadaného zobrazení vypočte vzdálenost od bodu [0,0] po svislé ose
 # vstupem je zeměpisná šířka, zobrazení, poloměr a měřítko
@@ -197,14 +171,22 @@ def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
 
 # volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
 # pokud je zadán vstup [0,0], program končí
-while bod_zem_sirka != 0 and bod_zem_delka != 0:
+while True:
+    bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
+    bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
+    souradnice_bodu = []
+    if bod_zem_sirka == 0 and bod_zem_delka == 0:
+        print("Zadaný bod [0,0], konec programu.")
+        quit()
+    elif bod_zem_sirka > 90 or bod_zem_sirka < -90:
+        print("Zadaná nesprávná zeměpisná šířka! Zadej znovu.")
+        continue
+    elif bod_zem_delka > 180 or bod_zem_delka < -180:
+        print("Zadaná nesprávná zeměpisná délka! Zadej znovu.")
+        continue
+    elif zobrazeni = M and (bod_zem_sirka >= 90 or bod_zem_sirka <= -90):
+        print("Chyba")
+        continue
     vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko)
     vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
     print("Souřadnice zadaného bodu jsou:", souradnice_bodu)
-    souradnice_bodu.pop()
-    souradnice_bodu.pop()
-    bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
-    bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
-if bod_zem_sirka == 0 and bod_zem_delka == 0:
-    print("Zadaný bod [0,0], konec programu.")
-    quit()
