@@ -108,7 +108,6 @@ def vypocti_zvolene_zobrazeni(zobrazeni):
         return
 vypocti_zvolene_zobrazeni(zobrazeni)
 
-
 # vypsání výsledků pomocí volání funkce print()
 # je zde ošetřen vstup poloměru 0 pro defaultně nastavený poloměr 6371.11 km
 
@@ -125,10 +124,7 @@ print("Poledníky:", seznam_poledniky)
 
 # výpočet souřadnic libovolných bodů
 # využívá zadané vstupy na začítku programu: zobrazení, poloměr a měřítko
-# nejdříve požadováno jako vstup zadání zeměpisné šířky a zeměpisné délky bodu
-# bod_zem_sirka = int(input()
-# bod_zem_delka = int(input()
-# souradnice_bodu = []
+# vstupem je zadání zeměpisné šířky a zeměpisné délky bodu
 
 # funkce, která dle zadaného zobrazení vypočte vzdálenost od bodu [0,0] po svislé ose
 # vstupem je zeměpisná šířka, zobrazení, poloměr a měřítko
@@ -170,15 +166,13 @@ def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
         souradnice_bodu.append(x)
 
 # volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
-# pokud je zadán vstup [0,0], program končí
+# nekonečný while cyklus se ptá, dokud není zadán bod [0,0], po jeho zadání skončí
+# řeč´ší nesprávné vstupy - chybně zadané stupně a nepočítá s 90° při výpočtu Mercatorova zobrazení
 while True:
     bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
     bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
     souradnice_bodu = []
-    if bod_zem_sirka == 0 and bod_zem_delka == 0:
-        print("Zadaný bod [0,0], konec programu.")
-        quit()
-    elif bod_zem_sirka > 90 or bod_zem_sirka < -90:
+    if bod_zem_sirka > 90 or bod_zem_sirka < -90:
         print("Zadaná nesprávná zeměpisná šířka! Zadej znovu.")
         continue
     elif bod_zem_delka > 180 or bod_zem_delka < -180:
@@ -187,6 +181,9 @@ while True:
     elif zobrazeni == "M" and (bod_zem_sirka >= 90 or bod_zem_sirka <= -90):
         print("Chyba")
         continue
+    elif bod_zem_sirka == 0 and bod_zem_delka == 0:
+        print("Zadaný bod [0,0], konec programu.")
+        quit()
     vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko)
     vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
     print("Souřadnice zadaného bodu jsou:", souradnice_bodu)
