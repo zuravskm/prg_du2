@@ -201,6 +201,8 @@ while bod_zem_sirka != 0 and bod_zem_delka != 0:
     vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko)
     vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko)
     print("Souřadnice zadaného bodu jsou:", souradnice_bodu)
+    souradnice_bodu.pop()
+    souradnice_bodu.pop()
     bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
     bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
 if bod_zem_sirka == 0 and bod_zem_delka == 0:
