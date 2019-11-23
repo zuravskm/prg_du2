@@ -32,17 +32,26 @@ if meritko <= 0:
 seznam_rovnobezky = []
 seznam_poledniky = []
 
+# ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
+def prekroceni_delky_x(x):
+    if x <= -100.0 or x >= 100.0:
+        seznam_poledniky.append("-")
+    else:
+        seznam_poledniky.append(x)
+
+def prekroceni_delky_y(y):
+    if y <= -100.0 or y >= 100.0:
+        seznam_rovnobezky.append("-")
+    else:
+        seznam_rovnobezky.append(y)
+
 # výpočet poledníků je shodný pro všechna zobrazení
 # vstupem je zadaný poloměr a měřítko
 # vrací vypočtenou hodnotu s přesností na milimetry (proměnná x)
 def vypocet_poledniky(polomer_cm, meritko):
     for zem_delka in range(-180, 190, 10):
         x = (round((polomer_cm*((radians(zem_delka)))/meritko),1)) # zaokrouhleno na 1 des. místo
-        if x <= -100.0 or x >= 100.0:
-            seznam_poledniky.append("-")
-            # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
-        else:
-            seznam_poledniky.append(x)
+        prekroceni_delky_x(x)
 
 
 # 4 funkce na výpočet rovnoběžek dle zadaného zobrazení
@@ -52,34 +61,22 @@ def vypocet_poledniky(polomer_cm, meritko):
 def Marin_rovnobezky(polomer_cm, meritko):
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm*((radians(zem_sirka)))/meritko), 1))
-        if y <= -100.0 or y >= 100.0:
-            seznam_rovnobezky.append("-")
-        else:
-            seznam_rovnobezky.append(y)
+        prekroceni_delky_y(y)
 
 def Lambert_rovnobezky(polomer_cm, meritko):
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm*(sin(radians(zem_sirka)))/meritko), 1))
-        if y <= -100.0 or y >= 100.0:
-            seznam_rovnobezky.append("-")
-        else:
-            seznam_rovnobezky.append(y)
+        prekroceni_delky_y(y)
 
 def Braun_rovnobezky(polomer_cm, meritko):
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm * (tan(((radians(zem_sirka)))/2))/meritko), 1))
-        if y <= -100.0 or y >= 100.0:
-            seznam_rovnobezky.append("-")
-        else:
-            seznam_rovnobezky.append(y)
+        prekroceni_delky_y(y)
 
 def Mercator_rovnobezky(polomer_cm, meritko):
     for zem_sirka in range(-80, 90, 10):  # problém s 90°, proto jen do 80°
         y = (round((polomer_cm*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko), 1))
-        if y <= -100.0 or y >= 100.0:
-            seznam_rovnobezky.append("-")
-        else:
-            seznam_rovnobezky.append(y)
+        prekroceni_delky_y(y)
 
 # funkce, která volá jednotlivé funkce na výpočet poledníků a rovnoběžek definované výše dle požadovaného zobrazení
 # vstupem je zobrazení
