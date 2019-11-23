@@ -127,10 +127,10 @@ def vypocti_zem_sirku_bodu(y, d, bod_zem_sirka, zobrazeni, polomer_cm, meritko):
     if zobrazeni == "A":
         y = (round((polomer_cm * ((radians(bod_zem_sirka))) / meritko), 1))
         souradnice_bodu.append(y)
-    elif zobrazeni == "B":
+    elif zobrazeni == "L":
         y = (round((polomer_cm * (sin(radians(bod_zem_sirka))) / meritko), 1))
         souradnice_bodu.append(y)
-    elif zobrazeni == "L":
+    elif zobrazeni == "B":
         y = (round((polomer_cm * (tan(((radians(bod_zem_sirka))) / 2)) / meritko), 1))
         souradnice_bodu.append(y)
     elif zobrazeni == "M":
