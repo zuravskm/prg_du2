@@ -82,7 +82,7 @@ def Mercator_rovnobezky(d, y, polomer_cm, meritko):
         if d == 0:
             return seznam_rovnobezky.append("-")
         elif d != 0:
-            y = (round((polomer_cm*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko), 1))
+            y = (round((polomer_cm*(log(1/(tan(radians((d)/2)))))/meritko), 1))
             prekroceni_delky_y(y)
 
 # funkce, která volá jednotlivé funkce na výpočet poledníků a rovnoběžek definované výše dle požadovaného zobrazení
@@ -140,7 +140,7 @@ def vypocti_zem_sirku_bodu(y, d, bod_zem_sirka, zobrazeni, polomer_cm, meritko):
         elif d == 180:
             souradnice_bodu.append("-")
         else:
-            y = (round((polomer_cm * (log(1 / (tan((d) / 2))))) / meritko), 1)
+            y = (round((polomer_cm*(log(1/(tan(radians((d)/2)))))/meritko), 1))
             souradnice_bodu.append(y)
 
 # funkce, která vypočte vzdálenost od bodu [0,0] po vodorovné ose
