@@ -116,10 +116,10 @@ print("Poledníky:", seznam_poledniky)
 
 # výpočet souřadnic libovolných bodů
 # využívá zadané vstupy na začítku programu: zobrazení, poloměr a měřítko
-# vstupem je zadání zeměpisné šířky a zeměpisné délky bodu
 
 # funkce, která dle zadaného zobrazení vypočte vzdálenost od bodu [0,0] po svislé ose
 # vstupem je zeměpisná šířka, zobrazení, poloměr a měřítko
+# řeší výpočet Mercatorova zobrazení při vstupu 90° nebo - 90° vypsáním "-", protože tato hodnota směřuje do nekonečna
 def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
     if zobrazeni == "A":
         y = (round((polomer_cm * ((radians(bod_zem_sirka))) / meritko), 1))
@@ -148,7 +148,7 @@ def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
 
 # volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
 # program se ptá, dokud není zadán bod [0,0], po jeho zadání skončí
-# řeší nesprávné vstupy - chybně zadané stupně a vstup 90° u Mercatorova
+# řeší nesprávné vstupy - zadání větších stupňů než 90 a 180, respektive menších než -90° a -180°
 while True:
     bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
     bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
