@@ -74,9 +74,13 @@ def Braun_rovnobezky(polomer_cm, meritko):
         prekroceni_delky_y(y)
 
 def Mercator_rovnobezky(polomer_cm, meritko):
-    for zem_sirka in range(-80, 90, 10):  # problém s 90°, proto jen do 80°
-        y = (round((polomer_cm*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko), 1))
-        prekroceni_delky_y(y)
+    for zem_sirka in range(-90, 100, 10):
+        d = 90 - zem_sirka
+        if d == 0:
+            return seznam_rovnobezky.append("-")
+        elif d != 0:
+            y = (round((polomer_cm*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko), 1))
+            prekroceni_delky_y(y)
 
 # funkce, která volá jednotlivé funkce na výpočet poledníků a rovnoběžek definované výše dle požadovaného zobrazení
 # vstupem je zobrazení
