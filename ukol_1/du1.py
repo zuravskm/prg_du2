@@ -3,11 +3,10 @@
 from math import radians, sin, tan, log
 
 # zadání zobrazení
-# pokud uživatel zadá x program nahlásí chybu a skončí
 # pokud uživetel zadá jiné písmeno, program ho upozorní a skončí
-zobrazeni = input("Zadej počáteční písmeno zobrazení:")
+zobrazeni = input("Zadej písmeno zobrazení (Marinovo - A, Braunovo - B, Lambertovo - L, nebo Marcatorovo - M):")
 if zobrazeni not in ["A", "B", "L", "M"]:
-    print("Zadej správné počáteční písmeno zobrazení!")
+    print("Zadej správné písmeno zobrazení!")
     quit()
 
 # volitelný poloměr Země
@@ -23,9 +22,9 @@ elif polomer_cm < 0:
     quit()
 
 # zadávání měřítka
-# funkce vrací zadané měřítko
+# vrací zadané měřítko
 # pokud uživatel zadá záporné nebo nulové měřítko, pogram nahlásí chybu
-meritko = int(input("Zadej měřítko (z tvaru 1:m zadej pouze číslo m):"))
+meritko = int(input("Zadej měřítko (z tvaru 1:m pouze číslo m):"))
 if meritko <= 0:
     print("Zadej správně měřítko!")
     quit()
