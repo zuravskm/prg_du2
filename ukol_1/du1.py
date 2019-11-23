@@ -118,42 +118,40 @@ print("Poledníky:", seznam_poledniky)
 # využívá zadané vstupy na začítku programu: zobrazení, poloměr a měřítko
 # vstupem je zadání zeměpisné šířky a zeměpisné délky bodu
 
+# ošetření chybových hlášek při překročení vzdálenosti 1 m u výpočtu souřadnic bodů
+def bod_prekroceni_delky_x(x):
+    if x <= -100.0 or x >= 100.0:
+        souradnice_bodu.append("-")
+    else:
+        souradnice_bodu.append(x)
+
+def bod_prekroceni_delky_y(y):
+    if y <= -100.0 or y >= 100.0:
+        souradnice_bodu.append("-")
+    else:
+        souradnice_bodu.append(y)
+
 # funkce, která dle zadaného zobrazení vypočte vzdálenost od bodu [0,0] po svislé ose
 # vstupem je zeměpisná šířka, zobrazení, poloměr a měřítko
 def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
     if zobrazeni == "A":
         y = (round((polomer_cm * ((radians(bod_zem_sirka))) / meritko), 1))
-        if y <= -100.0 or y >= 100.0:
-            souradnice_bodu.append("-")
-        else:
-            souradnice_bodu.append(y)
+        bod_prekroceni_delky_y(y)
     elif zobrazeni == "B":
         y = (round((polomer_cm * (sin(radians(bod_zem_sirka))) / meritko), 1))
-        if y <= -100.0 or y >= 100.0:
-            souradnice_bodu.append("-")
-        else:
-            souradnice_bodu.append(y)
+        bod_prekroceni_delky_y(y)
     elif zobrazeni == "L":
         y = (round((polomer_cm * (tan(((radians(bod_zem_sirka))) / 2)) / meritko), 1))
-        if y <= -100.0 or y >= 100.0:
-            souradnice_bodu.append("-")
-        else:
-            souradnice_bodu.append(y)
+        bod_prekroceni_delky_y(y)
     elif zobrazeni == "M":
         y = (round((polomer_cm * (log(1 / (tan(radians((90 - bod_zem_sirka) / 2))))) / meritko), 1))
-        if y <= -100.0 or y >= 100.0:
-            souradnice_bodu.append("-")
-        else:
-            souradnice_bodu.append(y)
+        bod_prekroceni_delky_y(y)
 
 # funkce, která vypočte vzdálenost od bodu [0,0] po vodorovné ose
 # vstupem je zeměpisná délka, poloměr a měřítko
 def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
     x = (round((polomer_cm * ((radians(bod_zem_delka))) / meritko), 1))
-    if x <= -100.0 or x >= 100.0:
-        souradnice_bodu.append("-")
-    else:
-        souradnice_bodu.append(x)
+    bod_prekroceni_delky_x(x)
 
 # volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
 # program se ptá, dokud není zadán bod [0,0], po jeho zadání skončí
