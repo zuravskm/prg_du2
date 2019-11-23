@@ -36,7 +36,6 @@ seznam_poledniky = []
 # vstupem je zadané poloměr a měřítko
 # vrací vypočtenou hodnotu s přesností na milimetry (proměnná x)
 def vypocet_poledniky(polomer_cm, meritko):
-    x = float()
     for zem_delka in range(-180, 190, 10):
         x = (round((polomer_cm*((radians(zem_delka)))/meritko),1)) # zaokrouhleno na 1 des. místo
         if x <= -100.0 or x >= 100.0:
@@ -51,7 +50,6 @@ def vypocet_poledniky(polomer_cm, meritko):
 # výstupem je hodnota s přesností na milimetry (proměnná y)
 
 def Marin_rovnobezky(polomer_cm, meritko):
-    y = float()
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm*((radians(zem_sirka)))/meritko), 1))
         if y <= -100.0 or y >= 100.0:
@@ -60,7 +58,6 @@ def Marin_rovnobezky(polomer_cm, meritko):
             seznam_rovnobezky.append(y)
 
 def Lambert_rovnobezky(polomer_cm, meritko):
-    y = float()
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm*(sin(radians(zem_sirka)))/meritko), 1))
         if y <= -100.0 or y >= 100.0:
@@ -69,7 +66,6 @@ def Lambert_rovnobezky(polomer_cm, meritko):
             seznam_rovnobezky.append(y)
 
 def Braun_rovnobezky(polomer_cm, meritko):
-    y = float()
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm * (tan(((radians(zem_sirka)))/2))/meritko), 1))
         if y <= -100.0 or y >= 100.0:
@@ -78,7 +74,6 @@ def Braun_rovnobezky(polomer_cm, meritko):
             seznam_rovnobezky.append(y)
 
 def Mercator_rovnobezky(polomer_cm, meritko):
-    y = float()
     for zem_sirka in range(-80, 90, 10):  # problém s 90°, proto jen do 80°
         y = (round((polomer_cm*(log(1/(tan(radians((90-zem_sirka)/2)))))/meritko), 1))
         if y <= -100.0 or y >= 100.0:
@@ -128,7 +123,6 @@ print("Poledníky:", seznam_poledniky)
 # funkce, která dle zadaného zobrazení vypočte vzdálenost od bodu [0,0] po svislé ose
 # vstupem je zeměpisná šířka, zobrazení, poloměr a měřítko
 def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
-    y = float()
     if zobrazeni == "A":
         y = (round((polomer_cm * ((radians(bod_zem_sirka))) / meritko), 1))
         if y <= -100.0 or y >= 100.0:
@@ -157,7 +151,6 @@ def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
 # funkce, která vypočte vzdálenost od bodu [0,0] po vodorovné ose
 # vstupem je zeměpisná délka, poloměr a měřítko
 def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
-    x = float()
     x = (round((polomer_cm * ((radians(bod_zem_delka))) / meritko), 1))
     if x <= -100.0 or x >= 100.0:
         souradnice_bodu.append("-")
