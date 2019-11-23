@@ -3,8 +3,8 @@
 from math import radians, sin, tan, log
 
 # zadání zobrazení
-# pokud uživetel zadá jiné písmeno, program ho upozorní a skončí
-zobrazeni = input("Zadej písmeno zobrazení (Marinovo - A, Braunovo - B, Lambertovo - L, nebo Marcatorovo - M):")
+# pokud uživetel zadá jiné písmeno, než tato definovaná, program ho upozorní a skončí
+zobrazeni = input("Zadej písmeno zobrazení (A - Marinovo, B - Braunovo, L - Lambertovo, nebo M - Marcatorovo):")
 if zobrazeni not in ["A", "B", "L", "M"]:
     print("Zadej správné písmeno zobrazení!")
     quit()
@@ -12,7 +12,7 @@ if zobrazeni not in ["A", "B", "L", "M"]:
 # volitelný poloměr Země
 # vrací zadaný poloměr přepočtený na cm
 # pokud uživatel zadá 0, je poloměr roven 6371,11 km
-# pokud zadá záporné číslo, program nahlásí chybu a skončí
+# zadání záporného poloměru není matematicky korektní, proto v tomto případě program skončí
 polomer_km = float(input("Zadej poloměr Země v km (s desetinnou tečkou), nebo 0 pro poloměr 6371.11:"))
 polomer_cm = polomer_km*100000
 if polomer_cm == 0:
@@ -23,7 +23,7 @@ elif polomer_cm < 0:
 
 # zadávání měřítka
 # vrací zadané měřítko
-# pokud uživatel zadá záporné nebo nulové měřítko, pogram nahlásí chybu
+# pokud uživatel zadá záporné nebo nulové měřítko, pogram skončí
 meritko = int(input("Zadej měřítko (z tvaru 1:m pouze číslo m):"))
 if meritko <= 0:
     print("Zadej správně měřítko!")
@@ -33,7 +33,7 @@ seznam_rovnobezky = []
 seznam_poledniky = []
 
 # výpočet poledníků je shodný pro všechna zobrazení
-# vstupem je zadané poloměr a měřítko
+# vstupem je zadaný poloměr a měřítko
 # vrací vypočtenou hodnotu s přesností na milimetry (proměnná x)
 def vypocet_poledniky(polomer_cm, meritko):
     for zem_delka in range(-180, 190, 10):
@@ -86,23 +86,20 @@ def Mercator_rovnobezky(polomer_cm, meritko):
 def vypocti_zvolene_zobrazeni(zobrazeni):
     if zobrazeni == "A":
         Marin_rovnobezky(polomer_cm, meritko)
-        vypocet_poledniky(polomer_cm, meritko)
         return
     elif zobrazeni == "L":
         Lambert_rovnobezky(polomer_cm, meritko)
-        vypocet_poledniky(polomer_cm, meritko)
         return
     elif zobrazeni == "B":
         Braun_rovnobezky(polomer_cm, meritko)
-        vypocet_poledniky(polomer_cm, meritko)
         return
     elif zobrazeni == "M":
         Mercator_rovnobezky(polomer_cm, meritko)
-        vypocet_poledniky(polomer_cm, meritko)
         return
 vypocti_zvolene_zobrazeni(zobrazeni)
+vypocet_poledniky(polomer_cm, meritko)
 
-# vypsání výsledků pomocí volání funkce print()
+# vypsání výsledků pomocí volání print()
 # je zde ošetřen vstup poloměru 0 pro defaultně nastavený poloměr 6371.11 km
 
 print("Zadané zobrazení:", zobrazeni)
@@ -158,8 +155,8 @@ def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
         souradnice_bodu.append(x)
 
 # volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
-# nekonečný while cyklus se ptá, dokud není zadán bod [0,0], po jeho zadání skončí
-# řeč´ší nesprávné vstupy - chybně zadané stupně a nepočítá s 90° při výpočtu Mercatorova zobrazení
+# program se ptá, dokud není zadán bod [0,0], po jeho zadání skončí
+# řeší nesprávné vstupy - chybně zadané stupně a vstup 90° u Mercatorova
 while True:
     bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
     bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
@@ -170,8 +167,8 @@ while True:
     elif bod_zem_delka > 180 or bod_zem_delka < -180:
         print("Zadaná nesprávná zeměpisná délka! Zadej znovu.")
         continue
-    elif zobrazeni == "M" and (bod_zem_sirka >= 90 or bod_zem_sirka <= -90):
-        print("Chyba")
+    elif zobrazeni == "M" and (bod_zem_sirka >= 90 or bod_zem_sirka < -90):
+        print("Zadaná nesprávná zeměpisná šířka! Zadej znovu.")
         continue
     elif bod_zem_sirka == 0 and bod_zem_delka == 0:
         print("Zadaný bod [0,0], konec programu.")
