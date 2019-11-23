@@ -118,40 +118,33 @@ print("Poledníky:", seznam_poledniky)
 # využívá zadané vstupy na začítku programu: zobrazení, poloměr a měřítko
 # vstupem je zadání zeměpisné šířky a zeměpisné délky bodu
 
-# ošetření chybových hlášek při překročení vzdálenosti 1 m u výpočtu souřadnic bodů
-def bod_prekroceni_delky_x(x):
-    if x <= -100.0 or x >= 100.0:
-        souradnice_bodu.append("-")
-    else:
-        souradnice_bodu.append(x)
-
-def bod_prekroceni_delky_y(y):
-    if y <= -100.0 or y >= 100.0:
-        souradnice_bodu.append("-")
-    else:
-        souradnice_bodu.append(y)
-
 # funkce, která dle zadaného zobrazení vypočte vzdálenost od bodu [0,0] po svislé ose
 # vstupem je zeměpisná šířka, zobrazení, poloměr a měřítko
 def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
     if zobrazeni == "A":
         y = (round((polomer_cm * ((radians(bod_zem_sirka))) / meritko), 1))
-        bod_prekroceni_delky_y(y)
+        souradnice_bodu.append(y)
     elif zobrazeni == "B":
         y = (round((polomer_cm * (sin(radians(bod_zem_sirka))) / meritko), 1))
-        bod_prekroceni_delky_y(y)
+        souradnice_bodu.append(y)
     elif zobrazeni == "L":
         y = (round((polomer_cm * (tan(((radians(bod_zem_sirka))) / 2)) / meritko), 1))
-        bod_prekroceni_delky_y(y)
+        souradnice_bodu.append(y)
     elif zobrazeni == "M":
-        y = (round((polomer_cm * (log(1 / (tan(radians((90 - bod_zem_sirka) / 2))))) / meritko), 1))
-        bod_prekroceni_delky_y(y)
+        d = 90 - bod_zem_sirka
+        if d == 0:
+            souradnice_bodu.append("-")
+        elif d == 180:
+            souradnice_bodu.append("-")
+        else:
+            y = (round((polomer_cm * (log(1 / (tan((d) / 2))))) / meritko), 1)
+            souradnice_bodu.append(y)
 
 # funkce, která vypočte vzdálenost od bodu [0,0] po vodorovné ose
 # vstupem je zeměpisná délka, poloměr a měřítko
 def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
     x = (round((polomer_cm * ((radians(bod_zem_delka))) / meritko), 1))
-    bod_prekroceni_delky_x(x)
+    souradnice_bodu.append(x)
 
 # volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
 # program se ptá, dokud není zadán bod [0,0], po jeho zadání skončí
@@ -165,9 +158,6 @@ while True:
         continue
     elif bod_zem_delka > 180 or bod_zem_delka < -180:
         print("Zadaná nesprávná zeměpisná délka! Zadej znovu.")
-        continue
-    elif zobrazeni == "M" and (bod_zem_sirka >= 90 or bod_zem_sirka < -90):
-        print("Zadaná nesprávná zeměpisná šířka! Zadej znovu.")
         continue
     elif bod_zem_sirka == 0 and bod_zem_delka == 0:
         print("Zadaný bod [0,0], konec programu.")
