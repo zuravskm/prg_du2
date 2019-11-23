@@ -50,7 +50,7 @@ def prekroceni_delky_y(y):
 # vrací vypočtenou hodnotu s přesností na milimetry (proměnná x)
 def vypocet_poledniky(polomer_cm, meritko):
     for zem_delka in range(-180, 190, 10):
-        x = (round((polomer_cm*((radians(zem_delka)))/meritko),1)) # zaokrouhleno na 1 des. místo
+        x = (round((polomer_cm*(radians(zem_delka))/meritko),1)) # zaokrouhleno na 1 des. místo
         prekroceni_delky_x(x)
 
 
@@ -58,20 +58,24 @@ def vypocet_poledniky(polomer_cm, meritko):
 # vstupem je zadané poloměr a měřítko
 # výstupem je hodnota s přesností na milimetry (proměnná y)
 
+
 def Marin_rovnobezky(polomer_cm, meritko):
     for zem_sirka in range(-90, 100, 10):
-        y = (round((polomer_cm*((radians(zem_sirka)))/meritko), 1))
+        y = (round((polomer_cm*(radians(zem_sirka))/meritko), 1))
         prekroceni_delky_y(y)
+
 
 def Lambert_rovnobezky(polomer_cm, meritko):
     for zem_sirka in range(-90, 100, 10):
         y = (round((polomer_cm*(sin(radians(zem_sirka)))/meritko), 1))
         prekroceni_delky_y(y)
 
+
 def Braun_rovnobezky(polomer_cm, meritko):
     for zem_sirka in range(-90, 100, 10):
-        y = (round((2*polomer_cm * (tan(((radians(zem_sirka)))/2))/meritko), 1))
+        y = (round((2*polomer_cm*(tan((radians(zem_sirka))/2))/meritko), 1))
         prekroceni_delky_y(y)
+
 
 def Mercator_rovnobezky(polomer_cm, meritko):
     for zem_sirka in range(-90, 100, 10):
@@ -79,11 +83,14 @@ def Mercator_rovnobezky(polomer_cm, meritko):
         if d == 0:
             return seznam_rovnobezky.append("-")
         elif d != 0:
-            y = (round((polomer_cm*(log(1/(tan(radians((d)/2)))))/meritko), 1))
+            y = (round((polomer_cm*(log(1/(tan(radians(d/2)))))/meritko), 1))
             prekroceni_delky_y(y)
+
 
 # funkce, která volá jednotlivé funkce na výpočet poledníků a rovnoběžek definované výše dle požadovaného zobrazení
 # vstupem je zobrazení
+
+
 def vypocti_zvolene_zobrazeni(zobrazeni):
     if zobrazeni == "A":
         Marin_rovnobezky(polomer_cm, meritko)
@@ -97,6 +104,8 @@ def vypocti_zvolene_zobrazeni(zobrazeni):
     elif zobrazeni == "M":
         Mercator_rovnobezky(polomer_cm, meritko)
         return
+
+
 vypocti_zvolene_zobrazeni(zobrazeni)
 vypocet_poledniky(polomer_cm, meritko)
 
@@ -120,15 +129,17 @@ print("Poledníky:", seznam_poledniky)
 # funkce, která dle zadaného zobrazení vypočte vzdálenost od bodu [0,0] po svislé ose
 # vstupem je zeměpisná šířka, zobrazení, poloměr a měřítko
 # řeší výpočet Mercatorova zobrazení při vstupu 90° nebo - 90° vypsáním "-", protože tato hodnota směřuje do nekonečna
+
+
 def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
     if zobrazeni == "A":
-        y = (round((polomer_cm * ((radians(bod_zem_sirka))) / meritko), 1))
+        y = (round((polomer_cm * (radians(bod_zem_sirka)) / meritko), 1))
         souradnice_bodu.append(y)
     elif zobrazeni == "L":
         y = (round((polomer_cm * (sin(radians(bod_zem_sirka))) / meritko), 1))
         souradnice_bodu.append(y)
     elif zobrazeni == "B":
-        y = (round((2*polomer_cm * (tan(((radians(bod_zem_sirka))) / 2)) / meritko), 1))
+        y = (round((2*polomer_cm * (tan((radians(bod_zem_sirka)) / 2)) / meritko), 1))
         souradnice_bodu.append(y)
     elif zobrazeni == "M":
         d = 90 - bod_zem_sirka
@@ -137,18 +148,23 @@ def vypocti_zem_sirku_bodu(bod_zem_sirka, zobrazeni, polomer_cm, meritko):
         elif d == 180:
             souradnice_bodu.append("-")
         else:
-            y = (round((polomer_cm*(log(1/(tan(radians((d)/2)))))/meritko), 1))
+            y = (round((polomer_cm*(log(1/(tan(radians(d/2)))))/meritko), 1))
             souradnice_bodu.append(y)
+
 
 # funkce, která vypočte vzdálenost od bodu [0,0] po vodorovné ose
 # vstupem je zeměpisná délka, poloměr a měřítko
+
+
 def vypocti_zem_delku_bodu(bod_zem_delka, polomer_cm, meritko):
-    x = (round((polomer_cm * ((radians(bod_zem_delka))) / meritko), 1))
+    x = (round((polomer_cm * (radians(bod_zem_delka)) / meritko), 1))
     souradnice_bodu.append(x)
 
 # volání výše definovaných funkcí a vypsání jejich výstupu v podobě seznamu
 # program se ptá, dokud není zadán bod [0,0], po jeho zadání skončí
 # řeší nesprávné vstupy - zadání větších stupňů než 90 a 180, respektive menších než -90° a -180°
+
+
 while True:
     bod_zem_sirka = int(input("Zadej zeměpisnou šířku bodu:"))
     bod_zem_delka = int(input("Zadej zeměpisnou délku bodu:"))
