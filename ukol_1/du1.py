@@ -40,7 +40,7 @@ seznam_poledniky = []
 
 
 def vzorec_poledniky(zem_delka, polomer_cm, meritko):
-    return (round((polomer_cm * (radians(zem_delka)) / meritko), 1))
+    return (round((polomer_cm*(radians(zem_delka))/meritko), 1))
 
 
 def vzorec_rovnobezky_marin(zem_sirka, polomer_cm, meritko):
