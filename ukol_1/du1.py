@@ -8,23 +8,23 @@ from math import radians, sin, tan, log
 
 
 def vzorec_poledniky(zem_delka, polomer_cm, meritko):
-    return (round((polomer_cm*(radians(zem_delka))/meritko), 1))
+    return round((polomer_cm*(radians(zem_delka))/meritko), 1)
 
 
 def vzorec_rovnobezky_marin(zem_sirka, polomer_cm, meritko):
-    return (round((polomer_cm*(radians(zem_sirka))/meritko), 1))
+    return round((polomer_cm*(radians(zem_sirka))/meritko), 1)
 
 
 def vzorec_rovnobezky_braun(zem_sirka, polomer_cm, meritko):
-    return (round((2*polomer_cm*(tan((radians(zem_sirka))/2))/meritko), 1))
+    return round((2*polomer_cm*(tan((radians(zem_sirka))/2))/meritko), 1)
 
 
 def vzorec_rovnobezky_lambert(zem_sirka, polomer_cm, meritko):
-    return (round((polomer_cm*(sin(radians(zem_sirka)))/meritko), 1))
+    return round((polomer_cm*(sin(radians(zem_sirka)))/meritko), 1)
 
 
 def vzorec_rovnobezky_mercator(d, polomer_cm, meritko):
-    return (round((polomer_cm*(log(1/(tan(radians(d/2)))))/meritko), 1))
+    return round((polomer_cm*(log(1/(tan(radians(d/2)))))/meritko), 1)
 
 
 # ošetření chybových hlášek při překročení vzdálenosti 1 m mezi přímkami sítě souřadnic
