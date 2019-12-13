@@ -5,3 +5,4 @@ with open("input.geojson", "r", encoding="utf-8") as f:
 
 print(data)
 print(len(data['features']))
+
